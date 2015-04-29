@@ -1,7 +1,10 @@
 module.exports = {
-  upstream: "http://localhost:8000/",
-  host:"0.0.0.0",
-  mirrorCollectionLinks: ["http://some-host.com/your-org/bookmark"],
-  mirrorLinks: ["http://proxite.lo.cal:1984/"]
+  upstream: "http://example.com/",
+  //host:"0.0.0.0",
+  mirrorCollectionLinks: [
+    "https://github.com/greatfire/wiki",
+    "https://bitbucket.org/greatfire/wiki"
+  ],
+  mirrorLinksFile: "./alt_base_urls.txt"
 };
 

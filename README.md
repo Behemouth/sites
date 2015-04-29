@@ -30,7 +30,7 @@
       "https://github.com/greatfire/wiki",
       "https://bitbucket.org/greatfire/wiki"
     ],
-    mirrorLinksFile: "/var/path/to/mirror_links.txt"
+    mirrorLinksFile: "./alt_base_urls.txt"
   };
 
   ```
@@ -38,7 +38,7 @@
 4. Advance usage of `site.js`, use middleware to modify response:
 
   ```javascript
-  var Site, WeedProxite;
+  var Site, WeedProxite,argv;
   WeedProxite = require('WeedProxite');
   Site = WeedProxite.Site;
   function main(host, port) {
@@ -59,7 +59,10 @@
   };
 
   exports.main = main;
-  if (require.main === module) {  main(); }
+  argv = process.argv;
+
+  /* Run as `node site.js localhost 8080` */
+  if (require.main === module) {  main(argv[2], argv[3]); }
   ```
 
   **Don't forget to call `next()`!**

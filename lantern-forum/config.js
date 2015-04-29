@@ -12,6 +12,9 @@ module.exports = {
     cert:fs.readFileSync('/etc/apache2/ssl/CA.crt')
   },
   */
-  mirrorCollectionLinks: ["https://github.com/greatfire/wiki","https://bitbucket.org/greatfire/wiki"],
-  mirrorLinks: ["https://localhost:1984/"]
+  mirrorCollectionLinks: [
+    "https://github.com/greatfire/wiki",
+    "https://bitbucket.org/greatfire/wiki"
+  ],
+  mirrorCollectionLinks: ["http://some-host.com/your-org/bookmark"],
 };
