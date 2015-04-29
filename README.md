@@ -44,14 +44,14 @@
   function main(host, port) {
     var site;
     site = new Site(__dirname);
+    site.withTextBody({mime:/javascript/i});
     site.use({
       mime: /javascript/i,
       host: "*",
-      after:function (proxyRes,res,next,proxyReq,req) {
+      before:function (proxyRes,res,next,proxyReq,req) {
+        // Don't forget to call next() if it doesn't end response
         if (!proxyRes.body) return next();
-        proxyRes.body = "/* disable all javascript */"
-        // Don't forget to call next()
-        next();
+        res.end("/* disable all javascript */");
       }
     });
     site.run(host, port);
