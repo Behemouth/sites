@@ -1,4 +1,4 @@
-var Site, WeedProxite, main, misc;
+var Site, WeedProxite, main, misc, argv;
 
 WeedProxite = require('WeedProxite');
 
@@ -22,9 +22,9 @@ main = function(host, port) {
   return site;
 };
 
+
 exports.main = main;
+argv = process.argv;
 
-if (require.main === module) {
-  main();
-}
-
+/* Run as `node site.js localhost 8080` */
+if (require.main === module) {  main(argv[2], argv[3]); }
