@@ -15,6 +15,5 @@ module.exports = {
   mirrorCollectionLinks: [
     "https://github.com/greatfire/wiki",
     "https://bitbucket.org/greatfire/wiki"
-  ],
-  mirrorCollectionLinks: ["http://some-host.com/your-org/bookmark"],
+  ]
 };
