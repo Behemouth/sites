@@ -14,7 +14,7 @@ main = function(host, port) {
     host: /^getlantern\.org|ui\.getlantern\.org$/i,
     after:function (proxyRes,res,next,proxyReq,req) {
       if (!proxyRes.body) return next(); // don't forget to call next()
-      var hostname = (req.headers.host || '').split(':')[0]
+      var hostname = (req.headers['x-forwarded-host'] || req.headers.host || '').split(':')[0]
       body = proxyRes.body;
       body = body.replace(
         '"s3.amazonaws.com":"MIRROR"',
