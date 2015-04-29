@@ -8,8 +8,9 @@
   cd my-mirror;
   proxite init;
   ```
-  
-  Or copy from example site:`cp example my-mirror`.
+
+  Or copy from other sites.
+
 3. Edit `config.js`, remember to change `mirrorLinks` or `mirrorLinksFile`:
 
   ```javascript
@@ -31,8 +32,9 @@
     ],
     mirrorLinksFile: "/var/path/to/mirror_links.txt"
   };
-  
+
   ```
+
 4. Advance usage of `site.js`, use middleware to modify response:
 
   ```javascript
@@ -55,12 +57,12 @@
     site.run(host, port);
     return site;
   };
-  
+
   exports.main = main;
   if (require.main === module) {  main(); }
   ```
-  
+
   **Don't forget to call `next()`!**
-  
+
   More options please see `WeedProxite/lib/Middleware.coffee`.
-                 
+
