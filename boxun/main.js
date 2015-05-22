@@ -13,7 +13,10 @@ main = function(host, port) {
   site.use({
     host:'gae.caspion.com', // disable this script
     before:function (req,res) {
-      res.writeHead(404,{"Content-Type":"text/javascript"});
+      res.writeHead(404,{
+        "Content-Type":"text/javascript",
+        "Cache-Control":"max-age=60000"
+      });
       res.end('');
     }
   })
@@ -23,7 +26,7 @@ main = function(host, port) {
 };
 
 
-exports.main = main;
+module.exports = main;
 argv = process.argv;
 
 /* Run as `node site.js localhost 8080` */

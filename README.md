@@ -35,7 +35,7 @@
 
   ```
 
-4. Advance usage of `site.js`, use middleware to modify response:
+4. Advance usage of `main.js`, use middleware to modify response:
 
   ```javascript
   var Site, WeedProxite,argv;
@@ -44,13 +44,10 @@
   function main(host, port) {
     var site;
     site = new Site(__dirname);
-    site.withTextBody({mime:/javascript/i});
     site.use({
       mime: /javascript/i,
-      host: "*",
       before:function (proxyRes,res,next,proxyReq,req) {
         // Don't forget to call next() if it doesn't end response
-        if (!proxyRes.body) return next();
         res.end("/* disable all javascript */");
       }
     });
@@ -58,10 +55,10 @@
     return site;
   };
 
-  exports.main = main;
+  module.exports = main;
   argv = process.argv;
 
-  /* Run as `node site.js localhost 8080` */
+  /* Run as `node main.js localhost 8080` */
   if (require.main === module) {  main(argv[2], argv[3]); }
   ```
 
