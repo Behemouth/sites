@@ -1,9 +1,13 @@
 module.exports = {
-  upstream: "http://example.com/",
-  //host:"0.0.0.0",
+  upstream: "https://pao-pao.net",
+  host:'0.0.0.0',
+  port:1984,
+  enableAppcache:false,
+  showJiathis:false,
   allowHosts:[
-     'v3.jiathis.com',
-     'id.jiathis.com'
+    'platform.twitter.com',
+    'v3.jiathis.com',
+    'id.jiathis.com'
   ],
   /*
   httpsOptions:{

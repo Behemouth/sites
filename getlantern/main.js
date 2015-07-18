@@ -32,6 +32,7 @@ main = function(host, port) {
       });
     }
   });
+  site.useDefault();
   site.run(host, port);
   return site;
 };

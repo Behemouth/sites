@@ -19,7 +19,10 @@ main = function(host, port) {
       });
       res.end('');
     }
-  })
+  });
+
+  site.useDefault();
+
 
   site.run(host, port);
   return site;
