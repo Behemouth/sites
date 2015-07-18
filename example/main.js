@@ -11,6 +11,7 @@
   main = function(host, port) {
     var site;
     site = new Site(__dirname);
+    site.useDefault();
     site.run(host, port);
     return site;
   };
