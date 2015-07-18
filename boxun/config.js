@@ -3,7 +3,7 @@ var fs = require('fs');
 module.exports = {
   upstream: "http://boxun.com",
   upstreamDefaultCharset: "GBK",
-  host:'127.0.0.1',
+  port:1986,
   showMirrorNotice:true,
   enableAppcache:false,
   allowHosts:[

@@ -1,6 +1,5 @@
 module.exports = {
   upstream: "https://pao-pao.net",
-  host:'0.0.0.0',
   port:1984,
   enableAppcache:false,
   showJiathis:false,

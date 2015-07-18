@@ -1,6 +1,7 @@
 var fs = require('fs');
 module.exports = {
   upstream: "https://getlantern.org",
+  port:1985,
   showMirrorNotice:false,
   enableAppcache:true,
   allowHosts:[
