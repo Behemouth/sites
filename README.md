@@ -51,6 +51,7 @@
         res.end("/* disable all javascript */");
       }
     });
+    site.useDefault(); // use default middlewares
     site.run(host, port);
     return site;
   };
