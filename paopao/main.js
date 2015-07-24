@@ -3,6 +3,7 @@
   var Site, WeedProxite, argv, main, misc;
 
   WeedProxite = require('WeedProxite');
+  var  rewrite = WeedProxite.rewrite;
 
   Site = WeedProxite.Site;
 
@@ -36,7 +37,7 @@
           body = body.replace(
             re,
             function (s) {
-              s = s.replace(/\bhttps?:/ig,'\\/$&');
+              s = s.replace(/\bhttps?:[\/\\]+pao-pao\.net[\\\/]+/ig,req.localConfig.mirrorLinks[0]);
               return s;
             }
           );
