@@ -5,6 +5,7 @@ module.exports = {
   enableAppcache:true,
   showJiathis:true,
   allowHosts:[
+    'docs.google.com',
     'www.youtube.com',
     'apis.google.com',
     'fonts.googleapis.com',
