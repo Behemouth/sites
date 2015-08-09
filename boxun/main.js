@@ -30,20 +30,16 @@ site.use({
 });
 
 if (site.config.showJiathis) {
-  site.use({
-    host: 'v3.jiathis.com',
-    mime: 'text/html',
-    before: function(req, res, next) {
-      req.localConfig.showJiathis = false;
-      req.localConfig.enableAppcache = false;
-      return next();
-    }
-  });
+  enableSocialShare = require('WeedProxite/lib/middlewares/enableSocialShare');
+  enableSocialShare(site);
 }
 
 site.useDefault();
 
 
 site.run(host, port);
+
+module.exports = site;
+
 
 
