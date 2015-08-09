@@ -1,11 +1,11 @@
 
-var fs = require('fs');
 module.exports = {
   upstream: "http://boxun.com",
   upstreamDefaultCharset: "GBK",
-  port:1986,
+  port:process.env.port || '1986',
+  host: process.env.host || '127.0.0.1',
   showMirrorNotice:true,
-  enableAppcache:false,
+  enableAppcache:true,
   allowHosts:[
       'v3.jiathis.com',
       'id.jiathis.com',
@@ -23,11 +23,6 @@ module.exports = {
       'www.googletagadservices.com',
       'www.toshop.net'
   ],
-  /*
-  httpsOptions:{
-    key:fs.readFileSync('/etc/apache2/ssl/CA.key'),
-    cert:fs.readFileSync('/etc/apache2/ssl/CA.crt')
-  },*/
   mirrorLinksFile: "./alt_base_urls.txt",
   //mirrorLinks: [],
   mirrorCollectionLinks: ["https://github.com/greatfire/wiki","https://bitbucket.org/greatfire/wiki"]

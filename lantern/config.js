@@ -1,20 +1,17 @@
-var fs = require('fs');
+
 module.exports = {
   upstream: "https://getlantern.org",
-  port:1985,
+  port: process.env.port || '1985',
+  host: process.env.host || '127.0.0.1',
   showMirrorNotice:false,
   enableAppcache:true,
+  ensureExternalLinkProtocol: 'auto',
   allowHosts:[
     'v3.jiathis.com',
     'id.jiathis.com',
     "ui.getlantern.org",
     "lanternforum.greatfire.org"
   ],
-  /*
-  httpsOptions:{
-    key:fs.readFileSync('/etc/apache2/ssl/CA.key'),
-    cert:fs.readFileSync('/etc/apache2/ssl/CA.crt')
-  },*/
   mirrorLinksFile: "./alt_base_urls.txt",
   mirrorCollectionLinks: [
     "https://github.com/greatfire/wiki",

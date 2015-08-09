@@ -1,6 +1,6 @@
 ## How to deploy
 
-1. Install WeedProxite first.
+1. Install or update WeedProxite first.
 2. Create your mirror site:
 
   ```
@@ -14,7 +14,7 @@
 3. Edit `config.js`, remember to change `mirrorLinks` or `mirrorLinksFile`:
 
   ```javascript
-  var fs = require('fs');
+  // var fs = require("fs");
   module.exports = {
     upstream: "http://example.com",
     showMirrorNotice:false,
@@ -22,10 +22,12 @@
       "sub.example.com",
       "blog.example.com"
     ],
+    /*
     httpsOptions:{
       key:fs.readFileSync('/etc/apache2/ssl/CA.key'),
       cert:fs.readFileSync('/etc/apache2/ssl/CA.crt')
     },
+    */
     mirrorCollectionLinks: [
       "https://github.com/greatfire/wiki",
       "https://bitbucket.org/greatfire/wiki"
@@ -35,35 +37,37 @@
 
   ```
 
-4. Advance usage of `main.js`, use middleware to modify response:
+4. Advanced usage of `main.js`, use middleware to modify response:
 
   ```javascript
-  var Site, WeedProxite,argv;
+  var Site, WeedProxite;
   WeedProxite = require('WeedProxite');
   Site = WeedProxite.Site;
-  function main(host, port) {
-    var site;
-    site = new Site(__dirname);
-    site.use({
-      mime: /javascript/i,
-      before:function (proxyRes,res,next,proxyReq,req) {
-        // Don't forget to call next() if it doesn't end response
-        res.end("/* disable all javascript */");
-      }
-    });
-    site.useDefault(); // use default middlewares
-    site.run(host, port);
-    return site;
-  };
-
-  module.exports = main;
-  argv = process.argv;
-
-  /* Run as `node main.js localhost 8080` */
-  if (require.main === module) {  main(argv[2], argv[3]); }
+  var site;
+  site = new Site(__dirname);
+  site.use({
+    mime: /javascript/i,
+    before:function (proxyRes,res,next,proxyReq,req) {
+      // Don't forget to call next() if it doesn't end response
+      res.end("/* disable all javascript */");
+    }
+  });
+  site.useDefault(); // use default proxy rewriter middlewares
+  site.run(host, port);
   ```
 
   **Don't forget to call `next()`!**
 
   More options please see `WeedProxite/lib/Middleware.coffee`.
 
+### How to deploy on Azure Websites
+
+1. Install or update WeedProxite on your local machine.
+
+2. Run `proxite init` under local site directory, it will generate `package.json` and `web.config` files.
+
+3. Upload all files under site directory to Azure Websites web root.
+
+4. Execute command `npm install` on Azure Websites web root.
+
+5. Done.
