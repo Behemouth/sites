@@ -23,7 +23,7 @@ port || (port = process.env.port);
 site = new Site(__dirname);
 site.use({
   mime: /javascript/i,
-  host: /^getlantern\.org|ui\.getlantern\.org$/i,
+  host: /^getlantern\.org$|^ui\.getlantern\.org$/i,
   after:function (proxyRes,res,next,proxyReq,req) {
     proxyRes.withTextBody(function (err,body) {
       if (err) return next(err);
@@ -46,9 +46,9 @@ site.use({
 });
 
 
-if (site.config.showJiathis) {
-  enableSocialShare = require('WeedProxite/lib/middlewares/enableSocialShare');
-  enableSocialShare(site);
+if (site.config.enableShareWidget) {
+  enableShareWidget = require('WeedProxite/lib/middlewares/enableShareWidget');
+  enableShareWidget(site);
 }
 
 site.useDefault();

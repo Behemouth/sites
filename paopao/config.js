@@ -3,8 +3,9 @@ module.exports = {
   port:process.env.port || '1984',
   host: process.env.host || '127.0.0.1',
   enableAppcache:true,
-  showJiathis:true,
+  enableShareWidget:true,
   allowHosts:[
+    'rest-production.mollom.com',
     'platform.twitter.com',
     'v3.jiathis.com',
     'id.jiathis.com'

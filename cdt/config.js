@@ -3,9 +3,10 @@ module.exports = {
   port:process.env.port || '1987',
   host: process.env.host || '127.0.0.1',
   enableAppcache:true,
-  showJiathis:true,
+  enableShareWidget:true,
   allowHosts:[
-    'docs.google.com',
+    //'docs.google.com',
+    //'ssl.gstatic.com',
     'www.youtube.com',
     'apis.google.com',
     'fonts.googleapis.com',

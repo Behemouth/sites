@@ -70,4 +70,9 @@
 
 4. Execute command `npm install` on Azure Websites web root.
 
+```
+sudo apt-get install httpie
+http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install"
+```
+
 5. Done.

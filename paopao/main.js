@@ -46,9 +46,9 @@ site.use({
   }
 });
 
-if (site.config.showJiathis) {
-  enableSocialShare = require('WeedProxite/lib/middlewares/enableSocialShare');
-  enableSocialShare(site);
+if (site.config.enableShareWidget) {
+  enableShareWidget = require('WeedProxite/lib/middlewares/enableShareWidget');
+  enableShareWidget(site);
 }
 
 site.useDefault();

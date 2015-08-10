@@ -5,7 +5,7 @@ module.exports = {
   host: process.env.host || '127.0.0.1',
   showMirrorNotice:true,
   enableAppcache:true,
-  showJiathis:true,
+  enableShareWidget:true,
   allowHosts:[
      'v3.jiathis.com',
      'id.jiathis.com'
