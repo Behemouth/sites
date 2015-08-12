@@ -59,6 +59,8 @@
 
   More options please see `WeedProxite/lib/Middleware.coffee`.
 
+
+
 ### How to deploy on Azure Websites
 
 1. Install or update WeedProxite on your local machine.
@@ -68,15 +70,14 @@
 3. Upload all files under site directory to Azure Websites web root.
 
 4. You'd better to upgrade npm to 3.x to avoid too deep nested node_modules problem on Windows.
-```
-sudo apt-get install httpie
-http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install npm@3.x.x -g"
-```
+  ```
+  sudo apt-get install httpie
+  http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install npm@3.x.x -g"
+  ```
 
 5. Execute command `npm install --production` on Azure Websites web root.
-
-```
-http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install --production"
-```
+  ```
+  http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install --production"
+  ```
 
 6. Done.
