@@ -1,14 +1,13 @@
 ## How to deploy
 
 1. Install or update WeedProxite first.
-2. Create your mirror site:
+2. Create your new mirror site,or copy from existing sites:
+
   ```
   mkdir my-mirror;
   cd my-mirror;
   proxite init;
   ```
-
-  Or copy from other sites.
 
 3. Edit `config.js`, remember to change `mirrorLinks` or `mirrorLinksFile`:
 
@@ -72,6 +71,7 @@
 4. You'd better to upgrade npm to 3.x to avoid too deep nested node_modules problem on Windows.
   ```
   sudo apt-get install httpie
+  # But it doesn't work, Azure sucks
   http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install npm@3.x.x -g"
   ```
 
