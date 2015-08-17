@@ -1,15 +1,8 @@
-## How to deploy
+## How to use
 
-1. Install or update WeedProxite first.
-2. Create your new mirror site,or copy from existing sites:
+1. Follow WeedProxite installation document: https://github.com/Behemouth/WeedProxite
 
-  ```
-  mkdir my-mirror;
-  cd my-mirror;
-  proxite init;
-  ```
-
-3. Edit `config.js`, remember to change `mirrorLinks` or `mirrorLinksFile`:
+2. Edit `config.js`, remember to change `mirrorLinks` or `mirrorLinksFile`:
 
   ```javascript
   // var fs = require("fs");
@@ -35,7 +28,7 @@
 
   ```
 
-4. Advanced usage of `main.js`, use middleware to modify response:
+3. Advanced usage of `main.js`, use middleware to modify response:
 
   ```javascript
   var Site, WeedProxite;
@@ -62,22 +55,16 @@
 
 ### How to deploy on Azure Websites
 
-1. Install or update WeedProxite on your local machine.
+1. Upload all files under site directory to Azure Websites `site/webroot` via FTP.
 
-2. Run `proxite init` under local site directory, it will generate files like `package.json`、`web.config`、`static/bundle.js`.
-
-3. Upload all files under site directory to Azure Websites web root.
-
-4. You'd better to upgrade npm to 3.x to avoid too deep nested node_modules problem on Windows.
+2. Install WeedProxite on Azure Websites web root.
   ```
-  sudo apt-get install httpie
-  # But it doesn't work, Azure sucks
-  http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install npm@3.x.x -g"
+  http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install --production git+https://github.com/Behemouth/WeedProxite.git"
   ```
 
-5. Execute command `npm install --production` on Azure Websites web root.
+3. Init site:
   ```
-  http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="npm install --production"
+  http --timeout 300000 -a username:password POST https://{your-sub-domain}.scm.azurewebsites.net/api/command  dir='site\\wwwroot'  command="./node_modules/.bin/proxite init"
   ```
 
-6. Done.
+4. Done
