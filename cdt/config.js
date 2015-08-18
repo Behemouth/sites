@@ -7,6 +7,7 @@ module.exports = {
   allowHosts:[
     //'docs.google.com',
     //'ssl.gstatic.com',
+    'hu.luo.bo',
     'pao-pao.net',
     'www.youtube.com',
     'apis.google.com',
