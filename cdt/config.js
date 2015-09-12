@@ -20,6 +20,5 @@ module.exports = {
     "https://github.com/greatfire/wiki",
     "https://bitbucket.org/greatfire/wiki"
   ],
-  mirrorLinksFile: "./alt_base_urls.txt"
+  mirrorLinksFile: "https://guest:guest@m999.greatfire.org/domains/cdt/"
 };
-
