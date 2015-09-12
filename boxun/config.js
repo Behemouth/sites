@@ -24,7 +24,7 @@ module.exports = {
       'www.googletagadservices.com',
       'www.toshop.net'
   ],
-  mirrorLinksFile: "./alt_base_urls.txt",
   //mirrorLinks: [],
-  mirrorCollectionLinks: ["https://github.com/greatfire/wiki","https://bitbucket.org/greatfire/wiki"]
+  mirrorCollectionLinks: ["https://github.com/greatfire/wiki","https://bitbucket.org/greatfire/wiki"],
+  mirrorLinksFile: "https://guest:guest@m999.greatfire.org/domains/boxun/"
 };

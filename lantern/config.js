@@ -12,10 +12,10 @@ module.exports = {
     "ui.getlantern.org",
     "lanternforum.greatfire.org"
   ],
-  mirrorLinksFile: "./alt_base_urls.txt",
   mirrorCollectionLinks: [
     "https://github.com/greatfire/wiki",
     "https://bitbucket.org/greatfire/wiki"
-  ]
+  ],
+  mirrorLinksFile: "https://guest:guest@m999.greatfire.org/domains/lantern/"
 };
 
