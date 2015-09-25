@@ -34,8 +34,7 @@ replaceBody = require('WeedProxite/lib/middlewares/replaceBody');
 site.use({
   mime:'text/html',
   after:replaceBody(
-          ['https:\\/\\/chinadigitaltimes.net\\/','/https-colon-//chinadigitaltimes.net/'],
-          ['http:\\/\\/chinadigitaltimes.net\\/','/https-colon-//chinadigitaltimes.net/'],
+          [/\bhttps?\:[\/\\]+chinadigitaltimes\.net[\/\\]+/g,'/https-colon-//chinadigitaltimes.net/'],
           ['p+"://platform.twitter.com/widgets.js"','"/https-colon-//platform.twitter.com/widgets.js"']
         )
 });
