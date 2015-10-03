@@ -1,4 +1,3 @@
-
 module.exports = {
   upstream: "http://boxun.com",
   upstreamDefaultCharset: "GBK",
@@ -25,6 +24,7 @@ module.exports = {
       'www.toshop.net'
   ],
   //mirrorLinks: [],
-  mirrorCollectionLinks: ["https://github.com/greatfire/wiki","https://bitbucket.org/greatfire/wiki"],
-  mirrorLinksFile: "https://guest:guest@m999.greatfire.org/domains/boxun/"
+  // override it in `config.json`
+  // mirrorLinksFile: "https://centrice-api/domains/boxun/"
+  mirrorCollectionLinks: ["https://github.com/greatfire/wiki","https://bitbucket.org/greatfire/wiki"]
 };

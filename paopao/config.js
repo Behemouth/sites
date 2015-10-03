@@ -10,10 +10,11 @@ module.exports = {
     'v3.jiathis.com',
     'id.jiathis.com'
   ],
+  // override this in `config.json`
+  // mirrorLinksFile: "https://localhost/domains/paopao/"
   mirrorCollectionLinks: [
     "https://github.com/greatfire/wiki",
     "https://bitbucket.org/greatfire/wiki"
-  ],
-  mirrorLinksFile: "https://guest:guest@m999.greatfire.org/domains/paopao/"
-};
+  ]
+}
 

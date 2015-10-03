@@ -4,6 +4,7 @@ module.exports = {
   host: process.env.host || '127.0.0.1',
   enableAppcache:true,
   enableShareWidget:true,
+  rankVisitors:true,
   allowHosts:[
     //'docs.google.com',
     //'ssl.gstatic.com',
@@ -16,9 +17,10 @@ module.exports = {
     'v3.jiathis.com',
     'id.jiathis.com'
   ],
+  // override this in `config.json`
+  //mirrorLinksFile: "https://centrice-api-server/domains/cdt/",
   mirrorCollectionLinks: [
     "https://github.com/greatfire/wiki",
     "https://bitbucket.org/greatfire/wiki"
-  ],
-  mirrorLinksFile: "https://guest:guest@m999.greatfire.org/domains/cdt/"
-};
+  ]
+}

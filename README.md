@@ -55,7 +55,7 @@
 
 ### How to deploy on Azure Websites
 
-1. Upload all files under site directory to Azure Websites `site/webroot` via FTP.
+1. Upload all files under site directory (and your private `config.json`) to Azure Websites `site/webroot` via FTP.
 
 2. Install WeedProxite on Azure Websites web root.
   ```

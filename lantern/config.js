@@ -12,10 +12,11 @@ module.exports = {
     "ui.getlantern.org",
     "lanternforum.greatfire.org"
   ],
+  // override it in `config.json`
+  //mirrorLinksFile: "https://centrice-api/domains/lantern/"
   mirrorCollectionLinks: [
     "https://github.com/greatfire/wiki",
     "https://bitbucket.org/greatfire/wiki"
-  ],
-  mirrorLinksFile: "https://guest:guest@m999.greatfire.org/domains/lantern/"
+  ]
 };
 
