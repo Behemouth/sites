@@ -32,6 +32,17 @@ if (site.config.enableShareWidget) {
 replaceBody = require('WeedProxite/lib/middlewares/replaceBody');
 
 site.use({
+  host:/\bchinadigitaltimes\.net$/,
+  path:/^\/$/,
+  before:function (req,res) {
+    res.writeHead(301,{
+      location:'/chinese/'
+    });
+    res.end(' ');
+  }
+});
+
+site.use({
   mime:'text/html',
   after:replaceBody(
           [/\bhttps?\:[\/\\]+chinadigitaltimes\.net[\/\\]+/g,'/https-colon-//chinadigitaltimes.net/'],
