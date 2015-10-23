@@ -22,5 +22,6 @@ module.exports = {
   mirrorCollectionLinks: [
     "https://github.com/greatfire/wiki",
     "https://bitbucket.org/greatfire/wiki"
-  ]
+  ],
+  gaTrackingID: "UA-26222920-7"
 }
