@@ -8,7 +8,7 @@ from multiprocessing.dummy import Pool as TreadPool
 import urllib3
 urllib3.disable_warnings()
 
-
+AZURE_API_MAX_RETRY = 4
 SITES_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
@@ -65,11 +65,17 @@ def update(site_root,password,domain,i):
     password = password
   )
 
-  cmd = "npm install --production git+https://github.com/Behemouth/WeedProxite.git"
-  azure_exec(domain, password,cmd)
+  for i in xrange(0,AZURE_API_MAX_RETRY):
+    try:
+      cmd = "npm install --production git+https://github.com/Behemouth/WeedProxite.git"
+      azure_exec(domain, password,cmd)
 
-  cmd = "./node_modules/.bin/proxite init"
-  azure_exec(domain, password,cmd)
+      cmd = "./node_modules/.bin/proxite init"
+      azure_exec(domain, password,cmd)
+    except requests.exceptions.HTTPError:
+      continue
+    else:
+      break
 
   print("\nDone site %d:%s" % (i,domain))
 
@@ -86,11 +92,11 @@ def azure_exec(domain,password,cmd):
 
 def uploadDir(localPath,remotePath,server,username,password):
   ftp = ftplib.FTP(server, username, password)
-
-  def doUpload(cwd):
-    files = os.listdir(cwd)
+  ftp.cwd(remotePath)
+  def doUpload(localDir):
+    files = os.listdir(localDir)
     for fname in files:
-      fpath = path.join(cwd,fname)
+      fpath = path.join(localDir,fname)
       if path.isfile(fpath):
         fp = open(fpath, 'rb')
         ftp.storbinary('STOR %s' % fname, fp)
@@ -99,7 +105,7 @@ def uploadDir(localPath,remotePath,server,username,password):
         ftp.mkd(fname)
         ftp.cwd(fname)
         doUpload(fpath)
-    ftp.cwd('..')
+        ftp.cwd('..')
 
   doUpload(localPath)
   ftp.quit()
