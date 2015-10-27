@@ -2,10 +2,18 @@
 # -*- coding: UTF-8 -*-
 import sys,os,json,ftplib,re,requests
 import os.path as path
+from multiprocessing.dummy import Pool as TreadPool
+
+
+# https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning
+# https://urllib3.readthedocs.org/en/latest/security.html#pyopenssl
 import urllib3
 urllib3.disable_warnings()
-SITES_ROOT = os.path.dirname(os.path.realpath(__file__))
+import urllib3.contrib.pyopenssl
+urllib3.contrib.pyopenssl.inject_into_urllib3()
 
+
+SITES_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 
 def main(args):
@@ -37,22 +45,37 @@ def main(args):
     print("Site list file %s does not exist!" % azure_sites)
 
   azure_sites = re.split('\\s+',open(azure_sites).read().strip())
-  print("%d sites to update." % len(azure_sites))
+  total = len(azure_sites)
+  print("Total %d sites to update." % total)
+  sys.stdout.flush()
 
-  for domain in azure_sites:
-    uploadDir(
-      localPath = site_root,
-      remotePath = 'site/wwwroot',
-      server = 'waws-prod-hk1-003.ftp.azurewebsites.windows.net',
-      username =  domain + '\wamcdt',
-      password = azure_password
-    )
+  def doUpdate(t):
+    i,domain = t
+    update(site_root,azure_password,domain,i)
 
-    cmd = "npm install --production git+https://github.com/Behemouth/WeedProxite.git"
-    azure_exec(domain, azure_password,cmd)
+  pool = TreadPool(128)
+  pool.map(doUpdate, enumerate(azure_sites))
+  pool.close()
+  pool.join()
 
-    cmd = "./node_modules/.bin/proxite init"
-    azure_exec(domain, azure_password,cmd)
+
+def update(site_root,password,domain,i):
+  print("\nUpdating site %d:%s" % (i,domain))
+  uploadDir(
+    localPath = site_root,
+    remotePath = 'site/wwwroot',
+    server = 'waws-prod-hk1-003.ftp.azurewebsites.windows.net',
+    username =  domain + '\wamcdt',
+    password = password
+  )
+
+  cmd = "npm install --production git+https://github.com/Behemouth/WeedProxite.git"
+  azure_exec(domain, password,cmd)
+
+  cmd = "./node_modules/.bin/proxite init"
+  azure_exec(domain, password,cmd)
+
+  print("\nDone site %d:%s" % (i,domain))
 
 
 def azure_exec(domain,password,cmd):
