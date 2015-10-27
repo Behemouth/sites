@@ -65,19 +65,25 @@ def update(site_root,password,domain,i):
     password = password
   )
 
-  for i in xrange(0,AZURE_API_MAX_RETRY):
+  err = False
+
+  for k in xrange(0,AZURE_API_MAX_RETRY):
     try:
       cmd = "npm install --production git+https://github.com/Behemouth/WeedProxite.git"
       azure_exec(domain, password,cmd)
 
       cmd = "./node_modules/.bin/proxite init"
       azure_exec(domain, password,cmd)
-    except requests.exceptions.HTTPError:
+      print("\nDone site %d:%s" % (i,domain))
+      return
+    except requests.exceptions.HTTPError,e:
+      err = e
+      print("Failed %d times, site %d:%s" % (k+1,i,domain))
       continue
-    else:
-      break
 
-  print("\nDone site %d:%s" % (i,domain))
+  raise err
+
+
 
 
 def azure_exec(domain,password,cmd):
