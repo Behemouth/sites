@@ -88,7 +88,7 @@ def update(site_root,password,domain,i):
 
 def azure_exec(domain,password,cmd):
   azure_api = 'https://%s.scm.azurewebsites.net/api/command' % domain
-  timeout = 30000
+  timeout = 1200
   auth = ('wamcdt',password)
   response = requests.post(azure_api,json={'dir':'site\\wwwroot','command':cmd},auth=auth,timeout=timeout)
   if response.status_code != requests.codes.ok :
