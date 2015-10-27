@@ -4,13 +4,9 @@ import sys,os,json,ftplib,re,requests
 import os.path as path
 from multiprocessing.dummy import Pool as TreadPool
 
-
 # https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning
-# https://urllib3.readthedocs.org/en/latest/security.html#pyopenssl
 import urllib3
 urllib3.disable_warnings()
-import urllib3.contrib.pyopenssl
-urllib3.contrib.pyopenssl.inject_into_urllib3()
 
 
 SITES_ROOT = os.path.dirname(os.path.realpath(__file__))
