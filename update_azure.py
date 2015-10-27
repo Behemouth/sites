@@ -22,6 +22,10 @@ def main(args):
   azure_password = args[2]
   centrice_vip_password = args[3]
 
+  dont_update_proxite = False
+  if len(args) > 4:
+    dont_update_proxite = True
+
   site_root = path.join(SITES_ROOT,site_id)
 
   if not path.isdir(site_root):
@@ -48,7 +52,7 @@ def main(args):
 
   def doUpdate(t):
     i,domain = t
-    update(site_root,azure_password,domain,i)
+    update(site_root,azure_password,domain,i,dont_update_proxite)
 
   pool = TreadPool(128)
   pool.map(doUpdate, enumerate(azure_sites))
@@ -56,7 +60,7 @@ def main(args):
   pool.join()
 
 
-def update(site_root,password,domain,i):
+def update(site_root,password,domain,i,dont_update_proxite):
   print("\nUpdating site %d:%s" % (i,domain))
   uploadDir(
     localPath = site_root,
@@ -65,6 +69,9 @@ def update(site_root,password,domain,i):
     username =  domain + '\wamcdt',
     password = password
   )
+  if dont_update_proxite:
+    print("\nQuick done site %d:%s" % (i,domain))
+    return
 
   err = False
 
@@ -77,7 +84,7 @@ def update(site_root,password,domain,i):
       azure_exec(domain, password,cmd)
       print("\nDone site %d:%s" % (i,domain))
       return
-    except requests.exceptions.HTTPError,e:
+    except requests.exceptions.RequestException,e:
       err = e
       print("Failed %d times, site %d:%s" % (k+1,i,domain))
       continue
@@ -125,9 +132,10 @@ def uploadDir(localPath,remotePath,server,username,password):
 def help():
   print("""
 Usage:
-  update-azure.py site_id azure_password centrice_vip_password
+  update-azure.py site_id azure_password centrice_vip_password dont_update_proxite
 
 It will read azure website domains from './azure_sites.txt' file, which contains azure subdomain sep by space.
+When [dont_update_proxite] presents,it will skip WeedProxite update
 
 Example:
   echo "subdomain1 sub2 sub3" > azure_sites.txt
