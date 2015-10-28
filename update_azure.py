@@ -12,6 +12,9 @@ urllib3.disable_warnings()
 AZURE_API_MAX_RETRY = 4
 SITES_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+failed_log = './azure_failed.txt'
+azure_sites_file = './azure_sites.txt'
+failed_sites = []
 
 def main(args):
   if len(args) < 4:
@@ -40,24 +43,25 @@ def main(args):
   with file(path.join(site_root,'config.json'),'wb') as config_file:
     json.dump(config,config_file,indent=2)
 
+  if not path.isfile(azure_sites_file):
+    print("Site list file %s does not exist!" % azure_sites_file)
 
-  azure_sites = './azure_sites.txt'
-  if not path.isfile(azure_sites):
-    print("Site list file %s does not exist!" % azure_sites)
-
-  azure_sites = re.split('\\s+',open(azure_sites).read().strip())
+  azure_sites = re.split('\\s+',open(azure_sites_file).read().strip())
   total = len(azure_sites)
   print("Total %d sites to update." % total)
-  sys.stdout.flush()
 
   def doUpdate(t):
     i,domain = t
     update(site_root,azure_password,domain,i,dont_update_proxite)
 
-  pool = TreadPool(128)
+  pool = TreadPool(16)
   pool.map(doUpdate, enumerate(azure_sites))
   pool.close()
   pool.join()
+
+  with open(failed_log,'wb') as f:
+    f.write(" ".join(failed_sites))
+    f.write("\n")
 
 
 def update(site_root,password,domain,i,dont_update_proxite):
@@ -73,7 +77,6 @@ def update(site_root,password,domain,i,dont_update_proxite):
     print("\nQuick done site %d:%s" % (i,domain))
     return
 
-  err = False
 
   for k in xrange(0,AZURE_API_MAX_RETRY):
     try:
@@ -85,14 +88,11 @@ def update(site_root,password,domain,i,dont_update_proxite):
       print("\nDone site %d:%s" % (i,domain))
       return
     except requests.exceptions.RequestException,e:
-      err = e
       print("Failed %d times, site %d:%s" % (k+1,i,domain))
+      print(e.message)
       continue
 
-  failed_log = 'azure_failed.log'
-  with FileLock(failed_log):
-    with open(failed_log,'ab') as f:
-      f.write(" "+domain)
+  failed_sites.append(domain)
 
 
 
