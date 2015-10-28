@@ -5,3 +5,4 @@
 !README.md
 !requirements.txt
 !update_azure.py
+!bench_azure.py
