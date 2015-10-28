@@ -3,7 +3,6 @@
 import sys,os,json,ftplib,re,requests
 import os.path as path
 from multiprocessing.dummy import Pool as TreadPool
-from filelock import FileLock
 
 # https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning
 import urllib3
@@ -99,7 +98,7 @@ def update(site_root,password,domain,i,dont_update_proxite):
 
 def azure_exec(domain,password,cmd):
   azure_api = 'https://%s.scm.azurewebsites.net/api/command' % domain
-  timeout = 600
+  timeout = 3000
   auth = ('wamcdt',password)
   response = requests.post(azure_api,json={'dir':'site\\wwwroot','command':cmd},auth=auth,timeout=timeout)
   if response.status_code != requests.codes.ok :
