@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-import time,urllib,re,random
+import time,urllib2,re,random
 from termcolor import colored
 
 azure_sites_file = './azure_sites.txt'
@@ -15,7 +15,7 @@ def main():
 
   for domain in azure_sites:
     start = time.time()
-    f = urllib.urlopen(TEST_URL % (domain,random.random()))
+    f = urllib2.urlopen(TEST_URL % (domain,random.random()))
     f.read()
     t = time.time() - start
     code = f.getcode()
