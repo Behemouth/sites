@@ -7,6 +7,7 @@ azure_sites_file = './azure_sites.txt'
 failed_log = './azure_failed.txt'
 
 TEST_URL = 'https://%s.azurewebsites.net/-proxite-/status?r=%s'
+TEST_URL = 'https://%s.azurewebsites.net/?r=%s'
 
 def main():
   azure_sites = re.split('\\s+',open(azure_sites_file).read().strip())
